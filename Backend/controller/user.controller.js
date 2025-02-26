@@ -30,8 +30,7 @@ export const handleSignUp = async(req, res) => {
 
 }
 
-export const handleLogin = async(req, res) => {
-    
+export const handleLogin = async(req, res) => {    
     try {
         const {username , email , password } = req.body;
         if(!username || !email || !password) return res.status(400).json({success:false, message:"Must fill all details to login"})
@@ -44,7 +43,7 @@ export const handleLogin = async(req, res) => {
         const isPasswordValid = await user.isPasswordValid(password)
         if(!isPasswordValid) return res.status(400).json({success:false, message:"Invalid password"})
     
-        const token = user.generateJsonWebToken()
+        const token = await user.generateJsonWebToken()
         const loggedInUser = await User.findById(user._id).select("-password -token") 
 
         const options = {
@@ -53,8 +52,8 @@ export const handleLogin = async(req, res) => {
         }
 
         return res
+        .cookie("token", token , options)     
         .status(200)
-        .cookie("token", token,options)     
         .json({success:true, message:"User logged in successfully", loggedInUser})
 
     } catch (error) {
@@ -73,6 +72,32 @@ export const handleLogout = async(req, res) => {
     }
 }
 
-export const getUser = async(req, res) => {
+export const getUserProfile = async(req, res) => {
     return res.status(200).json({success:true, message:"User fetched successfully", user: req.user})
 }
+
+export const updateUserProfile = async(req,res) =>{ 
+    try {
+        const {username, email , bio } = req.body
+        const user = req.user
+
+        const updateUser = await User.findById(user._id,
+            {
+                $set: {
+                    username: username,
+                    email: email,
+                    bio: bio
+                }
+            }
+        )
+        if(!updateUser) return res.status(400).json({success:false, message:"Error occured during updating the user"})
+
+        return res
+        .status(200)
+        .json({succes:true , message:"User Profile Updated successfully"})    
+    
+    } catch (error) {
+        console.log(error)
+        return res.status(400).json({succes:false, message:"Unable to Update User profile"})
+    }
+}  

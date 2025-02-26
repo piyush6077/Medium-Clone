@@ -16,7 +16,7 @@ const userSchema = new Schema({
         type:String,
         required:true
     },
-    JWTtoken:{
+    token:{
         type:String
     },
     bio:{
@@ -40,7 +40,7 @@ userSchema.methods.isPasswordValid = async function(password){
 }
 
 userSchema.methods.generateJsonWebToken = async function(req, res){
-    const token = jwt.sign({
+    const token = await jwt.sign({
         _id: this._id,
         email: this.email
     }, process.env.JWT_SECRET, {expiresIn: process.env.JWT_TOKEN_SECRET_EXPIRES_IN})
