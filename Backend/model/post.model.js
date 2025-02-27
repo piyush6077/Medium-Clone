@@ -11,15 +11,10 @@ const postSchema = new Schema({
     },
     image:{
         type:String,
-        required:true
     },
     author: {
         type: Schema.Types.ObjectId,
         ref: 'User'
-    },
-    published: {
-        type: Boolean,
-        default: false
     },
     status:{
         type: String,

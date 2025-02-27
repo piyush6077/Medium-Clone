@@ -78,23 +78,22 @@ export const getUserProfile = async(req, res) => {
 
 export const updateUserProfile = async(req,res) =>{ 
     try {
-        const {username, email , bio } = req.body
-        const user = req.user
+        const {username, bio } = req.body
+        const user = req.user?._id
 
-        const updateUser = await User.findById(user._id,
+        const updateUser = await User.findByIdAndUpdate(user,
             {
                 $set: {
                     username: username,
-                    email: email,
                     bio: bio
                 }
-            }
-        )
+            },{new: true}
+        ).select("-password -token")
         if(!updateUser) return res.status(400).json({success:false, message:"Error occured during updating the user"})
 
         return res
         .status(200)
-        .json({succes:true , message:"User Profile Updated successfully"})    
+        .json({success:true , message:"User Profile Updated successfully", updateUser})    
     
     } catch (error) {
         console.log(error)

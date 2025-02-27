@@ -6,7 +6,7 @@ const router = e.Router()
 router.post('/register', handleSignUp)
 router.post('/login', handleLogin)
 router.post('/logout', handleLogout)
-router.post('/updateProfile', updateUserProfile)
+router.post('/updateProfile', verifyJWT, updateUserProfile)
 
 
 router.get("/profile",verifyJWT, getUserProfile)
