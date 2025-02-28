@@ -67,7 +67,7 @@ export const updatePost = async(req,res) => {
 
     return res
     .status(200)
-    .json({success:true , message:"Post Updated successfully"})
+    .json({success:true , message:"Post Updated successfully", updatedPost})
 }
 
 export const deletePost = async(req,res) => {
@@ -120,5 +120,31 @@ export const getPostById = async(req, res) => {
     } catch (error) {
         console.log(error)
         return res.status(500).json({success: false , message: "Internal Server Error"})
+    }
+}
+
+export const likeAndUnlike = async(req,res) => {
+    try {
+        const userId = req.user?._id
+        const { id: postId } = req.params
+    
+        if(!userId){
+            return res.status(404).json({success:false , message:"Login to like the post"})
+        }
+            
+        const post = await Post.findById(postId)
+
+        let alreadyLiked = post.likes.includes(userId)
+        if(alreadyLiked){
+            post.likes = post.likes.filter(id => id.toString() !== userId.toString())
+        } else{
+            post.likes.push(userId)
+        }
+
+        await post.save()
+
+        res.status(200).json({success:true , message: alreadyLiked ? "Unlike" : "like"})
+    } catch (error) {
+        console.log(error)
     }
 }
