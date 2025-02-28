@@ -1,4 +1,6 @@
+import { v2 as cloudinary} from "cloudinary";
 import { User } from "../model/user.model.js";
+import uploadOnCloudinary from "../utils/cloudinary.js";
 
 export const handleSignUp = async(req, res) => {
     try {
@@ -78,14 +80,33 @@ export const getUserProfile = async(req, res) => {
 
 export const updateUserProfile = async(req,res) =>{ 
     try {
-        const {username, bio } = req.body
+        const {username, bio , avatar } = req.body
         const user = req.user?._id
+        
+        const existingUser = await User.findById(user)
+        if(!existingUser) return res.status(404).json({success:false , message:"Login to change Avatar"})
 
+        let avatarUrl = existingUser.avatar || "";
+        if(req.files?.["avatar"]?.[0]?.path){
+
+            if(existingUser.avatar){
+                const oldImagePublicId = existingUser.avatar.split('/').pop().split('.')[0];
+                await cloudinary.uploader.destroy(oldImagePublicId)
+            }
+
+            const avatarFile = await uploadOnCloudinary(req.files?.["avatar"]?.[0]?.path)
+            if(avatarFile.url){
+                avatarUrl = avatarFile.url
+            }
+        }
+        console.log(avatarUrl)
+        
         const updateUser = await User.findByIdAndUpdate(user,
             {
                 $set: {
                     username: username,
-                    bio: bio
+                    bio: bio,
+                    avatar:avatarUrl
                 }
             },{new: true}
         ).select("-password -token")

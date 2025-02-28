@@ -10,7 +10,7 @@ const postSchema = new Schema({
         required:true
     },
     image:{
-        type:String,
+        type:[String],
     },
     author: {
         type: Schema.Types.ObjectId,

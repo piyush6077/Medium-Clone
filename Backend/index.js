@@ -12,6 +12,8 @@ const PORT = process.env.PORT || 5000
 //middleware
 app.use(express.json())
 app.use(cookieParser())
+app.use(express.urlencoded({extended: true}))
+app.use(express.static("public")) //here we can store assets on the server that can be accessed by all
 
 //routes 
 app.use('/api/v1/user', userRoutes)
