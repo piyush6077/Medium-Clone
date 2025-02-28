@@ -21,6 +21,12 @@ const postSchema = new Schema({
         enum: ['draft', 'published', 'archived'],
         default: 'draft'
     },
+    comment: [
+        {
+            type: Schema.Types.ObjectId,
+            ref:"Comment"
+        }
+    ],
     likes: [
         { 
             type: Schema.Types.ObjectId,
