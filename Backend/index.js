@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import { connectDB } from "./db/db.js"
 import userRoutes from "./routes/user.routes.js"
 import postRoutes from "./routes/post.routes.js"
+import commentRoute from "./routes/comment.routes.js"
 import cookieParser from "cookie-parser"
 dotenv.config()
 
@@ -18,6 +19,7 @@ app.use(express.static("public")) //here we can store assets on the server that 
 //routes 
 app.use('/api/v1/user', userRoutes)
 app.use('/api/v1/post', postRoutes)
+app.use('/api/v1/comments', commentRoute)
 
 app.listen(PORT , ()=>{
     connectDB();

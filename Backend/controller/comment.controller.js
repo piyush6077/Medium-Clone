@@ -1,4 +1,5 @@
-import { Post } from "../model/post.model"
+import { Post } from "../model/post.model.js"
+import { Comment } from "../model/comment.model.js"
 
 export const createComment = async(req, res) => {
     try {
@@ -44,7 +45,7 @@ export const deleteComment = async (req, res) => {
             return res.status(403).json({success: false , message:"You cannot delete the Comment"})
         }
 
-        await comment.findByIdAndDelete(commentId)
+        await Comment.findByIdAndDelete(commentId)
         await Post.updateOne(
             {comment: commentId},
             {
@@ -71,7 +72,7 @@ export const getAllComments = async(req,res) => {
         const { id: postId } = req.params
 
         const AllComments = await Comment.find({post: postId}).populate("user" , "username email").sort({createdAt: -1})
-
+        
         return res
         .status(200)
         .json({success:"true", AllComments})
