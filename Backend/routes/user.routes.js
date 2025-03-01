@@ -14,7 +14,7 @@ router.post('/updateProfile', verifyJWT, upload.fields([
     }
 ]), updateUserProfile)
 
-
+router.
 router.get("/profile",verifyJWT, getUserProfile)
 
 

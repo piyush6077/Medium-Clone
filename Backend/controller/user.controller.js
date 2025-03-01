@@ -74,9 +74,12 @@ export const handleLogout = async(req, res) => {
     }
 }
 
-export const getUserProfile = async(req, res) => {
-    return res.status(200).json({success:true, message:"User fetched successfully", user: req.user})
-}
+export const checkAuth = async(req, res) => {
+    try {
+        return res.status(200).json(req.user)
+    } catch (error) {
+        return res.status(404).json({success: false , message:"User not found"})
+    }}
 
 export const updateUserProfile = async(req,res) =>{ 
     try {
