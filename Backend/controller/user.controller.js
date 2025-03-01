@@ -35,7 +35,7 @@ export const handleSignUp = async(req, res) => {
 export const handleLogin = async(req, res) => {    
     try {
         const {username , email , password } = req.body;
-        if(!username || !email || !password) return res.status(400).json({success:false, message:"Must fill all details to login"})
+        if(!username && !email || !password) return res.status(400).json({success:false, message:"Must fill all details to login"})
      
         const user = await User.findOne({
             $or: [{username}, {email}]
@@ -79,7 +79,8 @@ export const checkAuth = async(req, res) => {
         return res.status(200).json(req.user)
     } catch (error) {
         return res.status(404).json({success: false , message:"User not found"})
-    }}
+    }
+}
 
 export const updateUserProfile = async(req,res) =>{ 
     try {

@@ -1,5 +1,5 @@
 import e from "express"
-import { getUserProfile, handleLogin, handleLogout, handleSignUp, updateUserProfile } from "../controller/user.controller.js"
+import { checkAuth, handleLogin, handleLogout, handleSignUp, updateUserProfile } from "../controller/user.controller.js"
 import { verifyJWT } from "../middleware/auth.middleware.js"
 import {upload} from "../middleware/multer.middleware.js"
 const router = e.Router()
@@ -14,9 +14,7 @@ router.post('/updateProfile', verifyJWT, upload.fields([
     }
 ]), updateUserProfile)
 
-router.
-router.get("/profile",verifyJWT, getUserProfile)
-
+router.get("/checkAuth",verifyJWT, checkAuth)
 
 
 export default router

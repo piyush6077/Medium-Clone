@@ -1,5 +1,8 @@
 import React , {useState}from 'react'
-import toast from 'react-hot-toast'
+import toast, { LoaderIcon } from 'react-hot-toast'
+import { useAuthStore } from '../store/useAuthStore'
+import { Link } from 'react-router-dom'
+import { Loader2 } from 'lucide-react'
 
 const SignUp = () => {
     const [formData, setFormData] = useState({
@@ -7,13 +10,27 @@ const SignUp = () => {
         email:"",
         password:""
     }) 
+  
+    const { signup , isSigningUp} = useAuthStore()
 
+    console.log(isSigningUp)
+    const validateForm = () => {
+      if(!formData.username) return toast.error("username is required");
+      if(!formData.email) return toast.error("Email is Required");
+      if(!/\S+@\S+\.\S+/.test(formData.email)) return toast.error("Invalid email Format")
+      if(!formData.password) return toast.error("Password is Required");
+      if(formData.password.length < 6) return toast.error("Password should be greater than 6 letters");
+  
+      return true
+    }
     
     const handleSubmit = (e) => {
       e.preventDefault()
-      console.log(formData)
+      const success = validateForm()
+      if(success===true) signup(formData)
     }
-    return (
+  
+  return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
       <img
@@ -27,7 +44,7 @@ const SignUp = () => {
     </div>
 
     <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <form className="space-y-6" onClick={handleSubmit}>
+      <form className="space-y-6" onSubmit={handleSubmit}>
       <div>
           <label htmlFor="username" className="block text-sm/6 font-medium text-gray-900">
             username
@@ -92,17 +109,28 @@ const SignUp = () => {
           <button
             type="submit"
             className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            disabled={isSigningUp}
           >
-            Sign in
+            {isSigningUp ? 
+                (<div className='flex justify-center items-center gap-2'>
+                  <Loader2 className='size-5 animate-spin'/>
+                  <div>
+                    Loading.... 
+                  </div>
+                </div>
+              ):(
+                "Create Account"
+              )
+            }
           </button>
         </div>
       </form>
 
       <p className="mt-10 text-center text-sm/6 text-gray-500">
-        Not a member?{' '}
-        <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-          Start a 14 day free trial
-        </a>
+        Already have Account?{' '}
+        <Link to="/login" className="font-semibold text-indigo-600 hover:text-indigo-500">
+          Login
+        </Link>
       </p>
     </div>
   </div>
