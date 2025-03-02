@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useAuthStore } from '../store/useAuthStore'
 import { Eye, User , File, Bell, Search, PersonStanding, LibrarySquare, Bookmark, LucideBookmark, BarChartBig, LogOutIcon } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   const [ menu , setMenu ] = useState(false)
@@ -23,10 +24,10 @@ const Navbar = () => {
         </div>
 
         <div className='flex text-md text-gray-600 gap-x-8'>
-            <div className='flex gap-x-[5px] items-center'>
+            <Link  to='/write' className='flex gap-x-[5px] items-center'>
               <File width={22} className=''/>
-              <h3 className="text-sm">Write</h3>
-            </div>
+              <p className="text-sm">Write</p>
+            </Link>
             <div className='mt-[6px]'>
               <Bell width={23}/>
             </div>

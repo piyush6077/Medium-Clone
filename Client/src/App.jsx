@@ -7,6 +7,7 @@ import Login from './MajorComponents/Login'
 import { useAuthStore } from './store/useAuthStore'
 import { Navigate } from "react-router-dom"
 import { Loader } from 'lucide-react'
+import WritingCanvas from './MajorComponents/WritingCanvas'
 
 const App = () => {
   const {authUser , checkAuth , isCheckingAuth} = useAuthStore()
@@ -28,6 +29,7 @@ const App = () => {
                 <Route path='/' element={!authUser ? <HomePage/>: <Navigate to="/login"/>}></Route>
                 <Route path='/signup' element={<SignUp/>}></Route>
                 <Route path='/login' element={!authUser ? <Login/> : <Navigate to='/' />}></Route>
+                <Route path='/write' element={!authUser ? <WritingCanvas/> : ""}></Route>
             </Routes>
         </BrowserRouter>
       
