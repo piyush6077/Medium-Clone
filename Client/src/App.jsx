@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { Route , Routes , BrowserRouter} from "react-router-dom"
 import HomePage from './MajorComponents/HomePage'
-import Navbar from './MajorComponents/Navbar'
 import SignUp from './MajorComponents/SignUp'
 import { Toaster } from 'react-hot-toast'
 import Login from './MajorComponents/Login'
@@ -24,11 +23,9 @@ const App = () => {
 
   return (
     <div>
-        <Navbar/>
-        
         <BrowserRouter>
             <Routes>
-                <Route path='/' element={authUser ? <HomePage/>: <Navigate to="/login"/>}></Route>
+                <Route path='/' element={!authUser ? <HomePage/>: <Navigate to="/login"/>}></Route>
                 <Route path='/signup' element={<SignUp/>}></Route>
                 <Route path='/login' element={!authUser ? <Login/> : <Navigate to='/' />}></Route>
             </Routes>

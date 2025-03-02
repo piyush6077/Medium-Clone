@@ -1,9 +1,10 @@
 import React from 'react'
+import Navbar from './Navbar'
 
 const HomePage = () => {
   return (
-    <div>
-      Hello we are here
+    <div className='w-[100vw] h-screen'>
+      <Navbar/>
     </div>
   )
 }
