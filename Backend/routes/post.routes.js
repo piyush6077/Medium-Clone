@@ -10,6 +10,7 @@ router.post("/createPost" ,verifyJWT, upload.fields([
         maxCount:1
     }
 ]) , createPost)
+
 router.get("/getAllPost", verifyJWT , getAllPosts)
 router.get("/:id", verifyJWT, getPostById)
 router.put("/:id", verifyJWT , updatePost)

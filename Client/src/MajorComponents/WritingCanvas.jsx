@@ -4,6 +4,7 @@ import { Slate, Editable, withReact } from 'slate-react'
 
 import CodeElement from '../Slate/CodeElement.jsx';
 import DefaultElement from '../Slate/DefaultElement.jsx';
+import usePostStore from '../store/usePostStore.js';
 
 
 const Leaf = ({ attributes, children, leaf }) => {
@@ -77,7 +78,12 @@ const WritingCanvas = () => {
     content: initialValue
   })
 
-  console.log(content)
+  const { sendPost } = usePostStore()
+  const handlePostSubmit = (e) =>{
+    e.preventDefault()
+    console.log(content)
+    sendPost(content);
+  }
 
   const renderElement = useCallback(props => {
     switch (props.element.type) {
@@ -96,7 +102,12 @@ const WritingCanvas = () => {
 
   return (
       <div className='bg-white text-gray-700 w-[100vw] flex mt-6 justify-center'>
-
+      <button 
+        onClick={handlePostSubmit}
+        className='rounded-md bg-blue-800 hover:bg-blue-900 px-4 py-2 text-sm font-medium text-white shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-3 mb-3'
+        >
+          Draft
+      </button>
       <div className='flex flex-col w-[65%] items-center'>
         <textarea
             type="text"
@@ -108,13 +119,13 @@ const WritingCanvas = () => {
               e.target.style.height = "auto",
               e.target.style.height = `${e.target.scrollHeight}px`; 
             }}
-            className="w-full hide-scrollbar pt-8 overflow-hidden resize-none text-5xl font-semibold 
-            border-0 outline-none border-gray-300"
+            className="w-full flex hide-scrollbar h-17 overflow-hidden resize-none text-5xl font-semibold 
+            outline-none leading-16 border-gray-300"
           />
 
         <Slate 
           editor={editor} 
-          value={content.content}
+          initialValue={content.content}
           className='w-full'
           onChange={(value) => setContent({ ...content, content: value })} // ✅ Fix: Updating content correctly
         >
@@ -123,7 +134,7 @@ const WritingCanvas = () => {
             renderLeaf={renderLeaf}
             placeholder='Write something...'
             className='border w-full h-[430px] overflow-y-auto
-            border-none rounded-lg ml-3 outline-none hide-scrollbar'
+            border-none text-lg rounded-lg ml-3 outline-none hide-scrollbar'
             onKeyDown={e=>{
               if(!e.ctrlKey) return;
               

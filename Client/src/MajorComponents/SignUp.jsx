@@ -13,7 +13,6 @@ const SignUp = () => {
   
     const { signup , isSigningUp} = useAuthStore()
 
-    console.log(isSigningUp)
     const validateForm = () => {
       if(!formData.username) return toast.error("username is required");
       if(!formData.email) return toast.error("Email is Required");

@@ -9,7 +9,7 @@ const HomeContainer = () => {
         <div className='px-4 bg-blue-600'>Following</div>
         <div className='px-4 bg-blue-600'>Featured</div>
       </div>
-      <div className="flex items-center w-full px-10 justify-between mb-5">
+      <div className="flex items-center w-full px-10 justify-between mb-5 h-50">
         <div className='flex flex-col py-4 gap-3 bg-green-500 w-[60%] md:w-full h-full'>
             <div className='flex items-center gap-3 text-xs'>
                 <img src="" alt="" className='w-6 h-6'  />
@@ -40,8 +40,8 @@ const HomeContainer = () => {
                 </div>
             </div>
         </div>
-        <div className='w-[20%] h-full md:w-0 bg-red-500 flex items-center '>
-            <img src="" alt="" className='w-full rounded-xl h-30'/>
+        <div className='w-[30%] h-full bg-red-500 flex items-center '>
+            <img src="" alt="" className='w-[90%] rounded-xl h-30'/>
         </div>
       </div>
       

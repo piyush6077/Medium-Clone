@@ -6,7 +6,7 @@ const postSchema = new Schema({
         required:true
     },
     content:{
-        type:String,
+        type:Array,
         required:true
     },
     image:{
