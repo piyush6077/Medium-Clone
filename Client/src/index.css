@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+body{
+    font-family: "Montserrat", sans-serif;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none; /* Hides scrollbar */
+  }
+  
+  .hide-scrollbar {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE & Edge */
+  }
+  
