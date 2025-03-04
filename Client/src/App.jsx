@@ -9,6 +9,7 @@ import { Navigate } from "react-router-dom"
 import { Loader } from 'lucide-react'
 import WritingCanvas from './MajorComponents/WritingCanvas'
 import Navbar from './MajorComponents/Navbar'
+import ParticularPost from './MajorComponents/ParticularPost'
 
 const App = () => {
   const {authUser , checkAuth , isCheckingAuth} = useAuthStore()
@@ -28,8 +29,9 @@ const App = () => {
         <BrowserRouter>
             <Routes>
               <Route path='/' element={authUser ? <HomePage/>: <Navigate to="/login" />}></Route>
-              <Route path='/signup' element={<SignUp/>}></Route>
+              <Route path='/signup' element={!authUser ? <SignUp/> : <Navigate to='/login' /> }></Route>
               <Route path='/login' element={!authUser ? <Login/> : <Navigate to='/' />}></Route>
+              <Route path='/post/:id' element={authUser && <ParticularPost/>}></Route>
               <Route path='/write' element={authUser ? <> <Navbar/>, <WritingCanvas/> </> : <Login/>}></Route>
             </Routes>
         </BrowserRouter>

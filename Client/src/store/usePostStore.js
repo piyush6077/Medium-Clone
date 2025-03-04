@@ -6,7 +6,8 @@ const usePostStore = create((set) => ({
   posts: [],
   isPostLoading : false,
   isSendingPostToBrowser : false,
-  
+  selectedPost:null,
+
   getAllPosts: async() => {
     set({isPostLoading: true})
     try {
@@ -33,7 +34,19 @@ const usePostStore = create((set) => ({
     } finally{
         set({isSendingPostToBrowser:false})
     }
-  }
+  },
+
+  setSelectedPost: async (selectedPost) => {
+    try {
+      console.log(selectedPost)
+      const res = await axiosInstance.get(`/post/${selectedPost}`)
+      console.log("res : ",res)
+      set({selectedPost: res.data})
+      toast.success("Post")
+    } catch (error) {
+      toast.error(error.response.data.message)      
+    }
+  } 
 }))
 
-export default usePostStore
+export default usePostStore;

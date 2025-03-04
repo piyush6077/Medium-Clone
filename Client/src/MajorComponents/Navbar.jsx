@@ -10,6 +10,7 @@ const Navbar = () => {
   const handleLogout = (e) => {
     logout()
   }
+
   return (
     <div className='w-full h-16 border-[1px] border-gray-400 flex justify-center'>
       <div className='flex w-[94%] items-center justify-between'>
@@ -37,7 +38,7 @@ const Navbar = () => {
                 className='w-8 h-8 rounded-full flex items-center justify-center bg-black'>
                 <h1 className='text-white font-semibold'>P</h1>
               </div>
-              {menu && (<div className='w-70 h-70 px-2 border-2 absolute right-[-42px] top-12 rounded-md'>
+              {menu && (<div className='w-70 bg-white h-70 px-2 border-2 absolute right-[-42px] top-12 rounded-md'>
                 <div className='text-md text-gray-600'>
                   <div className='px-4 py-3 mt-2 cursor-pointer flex gap-x-4 items-center'>
                     <User width={24}/>
