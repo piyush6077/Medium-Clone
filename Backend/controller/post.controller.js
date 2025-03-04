@@ -113,7 +113,7 @@ export const getPostById = async(req, res) => {
     try {
       const { id:postId } = req.params
       
-      const post = await Post.findById(postId)
+      const post = await Post.findById(postId).populate("author","username image")
       if(!post){
         return res.status(400).json({success: false , message: "Post Not Found"})
       }
