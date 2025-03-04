@@ -14,9 +14,9 @@ const Navbar = () => {
     <div className='w-full h-16 border-[1px] border-gray-400 flex justify-center'>
       <div className='flex w-[94%] items-center justify-between'>
         <div className='flex gap-x-8'>
-          <h1 className='font-semibold text-xl'>
+          <Link to='/' className='font-semibold text-xl'>
             AIBLOG
-          </h1>
+          </Link>
           <div className='relative text-xs'>
             <input type="search" className='border-2 px-[25px] py-1 h-7 w-50 rounded-2xl'/>
             <Search className='absolute top-1 left-1' width={20} height={20}/>

@@ -1,9 +1,10 @@
 import { Post } from "../model/post.model.js"
 import uploadOnCloudinary from "../utils/cloudinary.js"
 
-export const createPost = async(req,res) => {
+export const createPost = async(req,res) => {    
     try {
         const {title , content ,status} = req.body
+        
         if(!title || !content){
             return res.status(400).json({success: false , message:"Post cannot be created withoud Title and Content"})            
         }       
@@ -31,10 +32,14 @@ export const createPost = async(req,res) => {
             author: authorOfPost,
             status 
         })
- 
-        return res
-        .status(200)
-        .json({success: true , message:"Post created successfully" , post})
+
+        const populatedPost = await Post.findById(post._id)
+        .populate("author", "username image")
+        .lean(); // Convert to plain object
+    
+    console.log(populatedPost);
+        return res.status(200).json({ success: true, message: "Post created successfully", post: populatedPost });
+   
     } catch (error) {
         console.log(error)
         return res.status(400).json({success: false, message:"Internal Server Error"})
@@ -96,7 +101,7 @@ export const deletePost = async(req,res) => {
 
 export const getAllPosts = async(req,res) => {
     try {
-        const posts = await Post.find().sort({createdAt: -1})
+        const posts = await Post.find().populate("author","username image").sort({createdAt: -1})
         return res.status(200).json({success: true , message:"All post fetch successfully" , posts})
     } catch (error) {
         console.log(error)
