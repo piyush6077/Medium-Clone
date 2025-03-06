@@ -25,7 +25,7 @@ const HomeContainer = () => {
   console.log(posts)
   return (
     <>
-    <div className='w-[60%] pt-5 border-r-[1px] border-l-[1px] border-gray-200 mx-auto'>
+    <div className='w-[60%] md:w-[80%] pt-5 border-r-[1px] border-l-[1px] border-gray-200 mx-auto'>
           <div className='flex items-center bg-white sticky top-0 z-10 text-gray-800 text-sm h-20 gap-2 px-6 border-b-1 border-gray-200'>
             <Link to='/create-post' className=''>
               <Plus width={19}/>
@@ -58,7 +58,7 @@ const HomeContainer = () => {
                   <h1 className='text-3xl w-full font-semibold mt-2 md:text-2xl'>
                     {post.title}
                   </h1>
-                  <p className='text-md h-10 text-gray-500'>
+                  <p className='text-md md:text-sm h-10 text-gray-500'>
                   {post.content?.[0]?.children?.[0]?.text.split(" ").slice(0, 25).join(" ") + " ..."}                  </p>
                 </div>
                 <div className='flex text-xs gap-5 mt-3 text-gray-800'>

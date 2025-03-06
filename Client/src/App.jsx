@@ -10,6 +10,7 @@ import { Loader } from 'lucide-react'
 import WritingCanvas from './MajorComponents/WritingCanvas'
 import Navbar from './MajorComponents/Navbar'
 import ParticularPost from './MajorComponents/ParticularPost'
+import ProfilePage from './MajorComponents/ProfilePage'
 
 const App = () => {
   const {authUser , checkAuth , isCheckingAuth} = useAuthStore()
@@ -31,6 +32,7 @@ const App = () => {
               <Route path='/' element={authUser ? <HomePage/>: <Navigate to="/login" />}></Route>
               <Route path='/signup' element={!authUser ? <SignUp/> : <Navigate to='/login' /> }></Route>
               <Route path='/login' element={!authUser ? <Login/> : <Navigate to='/' />}></Route>
+              <Route path='/profile' element={authUser ? <ProfilePage/> : <Navigate to='/login' />}></Route>
               <Route path='/post/:id' 
                 element={authUser && 
                   <>

@@ -91,7 +91,7 @@ export const updateUserProfile = async(req,res) =>{
         if(!existingUser) return res.status(404).json({success:false , message:"Login to change Avatar"})
 
         let avatarUrl = existingUser.avatar || "";
-        if(req.files?.["avatar"]?.[0]?.path){
+        if(req.files?.avatar?.[0]?.path){
 
             if(existingUser.avatar){
                 const oldImagePublicId = existingUser.avatar.split('/').pop().split('.')[0];

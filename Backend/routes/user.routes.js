@@ -7,7 +7,7 @@ const router = e.Router()
 router.post('/register', handleSignUp)
 router.post('/login', handleLogin)
 router.post('/logout', handleLogout)
-router.post('/updateProfile', verifyJWT, upload.fields([
+router.put('/updateProfile', verifyJWT, upload.fields([
     {
         name:"avatar",
         maxCount: 1
