@@ -10,21 +10,39 @@ const ProfilePage = () => {
     image: ""
   })
 
-  const [editProfile , setEditProfile] = useState(true)
+  const [editProfile , setEditProfile] = useState(false)
   const { authUser , updateProfileData ,isUpdatingProfile } = useAuthStore()
   
-  const handleUpdateSubmit = (e) => {
-    e.preventDefault()
+  useEffect(() => {
+    if (authUser) {
+      setUpdateProfile({
+        username: authUser.username || "",
+        bio: authUser.bio || "",
+        image: authUser.avatar || "",
+      });
+    }
+  }, [authUser]);
+
+  const handleUpdateSubmit = async(e) => {
+    e.preventDefault();
+    
     const formData = new FormData();
     formData.append("username", updateProfile.username);
     formData.append("bio", updateProfile.bio);
-    if (updateProfile.image){
+    
+    if (updateProfile.image && updateProfile.image instanceof File) {
       formData.append("avatar", updateProfile.image);
     }
-    
-    updateProfileData(formData)
-    console.log(formData)
-  }
+  
+    await updateProfileData(formData)
+
+    setUpdateProfile({
+      username: authUser.username,
+      bio: authUser.bio,
+      image: authUser.avatar
+    })
+  };
+  
   
   return (
     <>
@@ -47,7 +65,7 @@ const ProfilePage = () => {
               <div className='flex flex-col py-4 gap-3 w-[60%] md:w-full h-full'>
                 <div className='flex items-center gap-3 text-xs'>
                   <img 
-                    src={'../../public/avatar.png'}  
+                    src={'/avatar.png'}  
                     alt=""
                     className="w-6 h-6 object-cover rounded-full shadow-md"
                   />
@@ -81,7 +99,7 @@ const ProfilePage = () => {
       </div>
       <div className='w-[20%] gap-3 flex flex-col bg-yellow-500 p-10'>
         <img 
-          src={authUser.avatar || updateProfile.image || "../../public/avatar.png"} 
+          src={authUser.avatar || updateProfile.image } 
           alt="" 
           className='rounded-full h-21 w-21 object-cover'
         />
@@ -89,7 +107,7 @@ const ProfilePage = () => {
         <button 
           onClick={()=>setEditProfile(true)}
           className='text-green-500 text-sm cursor-pointer 
-          w-20 bg-blue-600'>
+          w-20'>
           Edit profile
         </button>
       </div>
@@ -104,38 +122,40 @@ const ProfilePage = () => {
             className='flex flex-col w-[90%]'
             onSubmit={handleUpdateSubmit}
           >
-            <div className='flex'>
-              <img src={updateProfile.image ? URL.createObjectURL(updateProfile.image) : authUser.avatar || '../../public/avatar.png'} className='w-28 h-28 rounded-full' />
-              <label className='relative w-15 h-5 bg-blue-400'>
+            <div>Photo</div>
+            <div className='flex mt-2'>
+              <img src={updateProfile.image instanceof File ? URL.createObjectURL(updateProfile.image) : authUser.avatar || '/avatar.png'} 
+              className='w-24 h-24 rounded-full mb-10' />
+              <label className='relative w-15 h-5 mt-8 ml-7 text-green-700 font-semibold'>
                 <input 
                   type="file" 
                   accept='image/*'
                   onChange={(e)=>setUpdateProfile({...updateProfile, image: e.target.files[0]})}
-                  className='absolute h-5 w-15 hidden' 
+                  className='absolute cursor-pointer h-5 w-15 hidden' 
                 />
-                Update
+                <p>Update</p>    
               </label>
             </div>
-            <div className='flex flex-col gap-5'>
-              <div className='flex flex-col gap-2'>                
-                <label htmlFor="username">Username</label>
+            <div className='flex flex-col gap-8'>
+              <div className='flex flex-col gap-1'>                
+                <label htmlFor="username" className=''>Username</label>
                 <input 
                   type="text" 
-                  className='w-full px-2 py-1 border-2 rounded-lg'
+                  className='w-full px-2 py-2 border-0 outline-none bg-gray-300'
                   onChange={(e)=>setUpdateProfile({...updateProfile,username: e.target.value})}
                 />
               </div>
-              <div className='flex flex-col gap-2'>
-                <label htmlFor="bio">Short Bio</label>
-                <input 
+              <div className='flex flex-col gap-1'>
+                <label htmlFor="bio" className=''>Short Bio</label>
+                <textarea 
                   type="text" 
-                  className='w-full h-30 border-2 rounded-lg'
+                  className='w-full resize-none p-2 outline-none h-30 border-0 bg-gray-300'
                   onChange={(e)=> setUpdateProfile({...updateProfile,bio: e.target.value})}
                 />
               </div>
             </div>
             <button 
-              className='py-2 rounded-lg bg-blue-600'
+              className='py-2 rounded-lg mt-5 text-white  bg-green-600'
               type='submit'
               disabled={isUpdatingProfile}
             >
