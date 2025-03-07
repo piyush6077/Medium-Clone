@@ -13,3 +13,6 @@ body{
     -ms-overflow-style: none; /* IE & Edge */
   }
   
+.bodyTransparent{
+  background: rgba(43, 43, 43, 0.144);
+}

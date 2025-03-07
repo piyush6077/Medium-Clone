@@ -11,6 +11,7 @@ import WritingCanvas from './MajorComponents/WritingCanvas'
 import Navbar from './MajorComponents/Navbar'
 import ParticularPost from './MajorComponents/ParticularPost'
 import ProfilePage from './MajorComponents/ProfilePage'
+import UpdateData from './MajorComponents/UpdateData'
 
 const App = () => {
   const {authUser , checkAuth , isCheckingAuth} = useAuthStore()
@@ -27,7 +28,6 @@ const App = () => {
 
   return (
     <div>
-        <BrowserRouter>
             <Routes>
               <Route path='/' element={authUser ? <HomePage/>: <Navigate to="/login" />}></Route>
               <Route path='/signup' element={!authUser ? <SignUp/> : <Navigate to='/login' /> }></Route>
@@ -42,9 +42,9 @@ const App = () => {
                 }
                 >
               </Route>
-              <Route path='/write' element={authUser ? <> <Navbar/>, <WritingCanvas/> </> : <Login/>}></Route>
+              <Route path='/write' element={authUser ? <> <Navbar/>, <WritingCanvas/> </> : <Login/>}></Route>                
             </Routes>
-        </BrowserRouter>
+
       
         <Toaster/>
     </div>
