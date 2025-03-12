@@ -34,8 +34,8 @@ export const createPost = async(req,res) => {
         })
 
         const populatedPost = await Post.findById(post._id)
-        .populate("author", "username image")
-        .lean(); // Convert to plain object
+        .populate("author", "username avatar")
+        .lean();
     
     console.log(populatedPost);
         return res.status(200).json({ success: true, message: "Post created successfully", post: populatedPost });
@@ -101,7 +101,7 @@ export const deletePost = async(req,res) => {
 
 export const getAllPosts = async(req,res) => {
     try {
-        const posts = await Post.find().populate("author","username image").sort({createdAt: -1})
+        const posts = await Post.find().populate("author","username avatar").sort({createdAt: -1})
         return res.status(200).json({success: true , message:"All post fetch successfully" , posts})
     } catch (error) {
         console.log(error)
@@ -113,7 +113,7 @@ export const getPostById = async(req, res) => {
     try {
       const { id:postId } = req.params
       
-      const post = await Post.findById(postId).populate("author","username image")
+      const post = await Post.findById(postId).populate("author","username avatar")
       if(!post){
         return res.status(400).json({success: false , message: "Post Not Found"})
       }

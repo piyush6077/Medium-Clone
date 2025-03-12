@@ -35,8 +35,11 @@ const Navbar = () => {
             <div className='relative cursor-pointer'>
               <div 
                 onClick={()=>setMenu(prev =>!prev)}
-                className='w-8 h-8 rounded-full flex items-center justify-center bg-black'>
-                <h1 className='text-white font-semibold'>P</h1>
+                className='w-8 h-8 rounded-full flex items-center justify-center broder-2'>
+                <img
+                  src={authUser.avatar}
+                  className='text-white font-semibold w-full h-full rounded-full'
+                />
               </div>
               {menu && (<div className='w-70 z-99 bg-white h-70 px-2 border-2 absolute right-[-42px] top-12 rounded-md'>
                 <div className='text-md text-gray-600'>

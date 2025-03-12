@@ -48,7 +48,7 @@ const HomeContainer = () => {
               <div className='flex flex-col py-4 gap-3 w-[60%] md:w-full h-full'>
                 <div className='flex items-center gap-3 text-xs'>
                   <img 
-                    src={ post.author?.image ||'../../public/avatar.png'}  
+                    src={ post.author?.avatar ||'../../public/avatar.png'}  
                     alt=""
                     className="w-6 h-6 object-cover rounded-full shadow-md"
                   />
