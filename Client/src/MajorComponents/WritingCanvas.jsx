@@ -81,7 +81,7 @@ const WritingCanvas = () => {
   const { sendPost } = usePostStore()
   const handlePostSubmit = (e) =>{
     e.preventDefault()
-    console.log(content)
+    console.log("Final Content Before Save:", JSON.stringify(content, null, 2));
     sendPost(content);
   }
 
@@ -127,7 +127,20 @@ const WritingCanvas = () => {
           editor={editor} 
           initialValue={content.content}
           className='w-full'
-          onChange={(value) => setContent({ ...content, content: value })} // ✅ Fix: Updating content correctly
+          onChange={(value) => {
+            const mergedParas= [
+              {
+                type: 'paragraph',
+                children: value.flatMap((node)=> node.children)
+              }
+            ];
+            setContent((prevContent) => (
+              { ...content, content: mergedParas }
+              ))
+            
+            console.log(mergedParas)
+            }
+          }
         >
           <Editable 
             renderElement={renderElement}

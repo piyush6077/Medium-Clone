@@ -13,6 +13,7 @@ const ProfilePage = () => {
   const closeUpdateProfile = () => {
     setEditProfile(false)
   }
+
   return (
     <>
     <Navbar />

@@ -25,7 +25,7 @@ const HomeContainer = () => {
   console.log(posts)
   return (
     <>
-    <div className='w-[60%] md:w-[80%] pt-5 border-r-[1px] border-l-[1px] border-gray-200 mx-auto'>
+    <div className='w-[60%] md:w-[80%] sm:w-[100%] xs:w-[100%] pt-5 border-r-[1px] border-l-[1px] border-gray-200 mx-auto'>
           <div className='flex items-center bg-white sticky top-0 z-10 text-gray-800 text-sm h-20 gap-2 px-6 border-b-1 border-gray-200'>
             <Link to='/create-post' className=''>
               <Plus width={19}/>
@@ -35,7 +35,7 @@ const HomeContainer = () => {
             <div className='px-4 py-1 hover:border-b-2 hover:border-gray-600'>Featured</div>
           </div>
       {isPostLoading ? (
-        <p className='flex items-center justify-center w-screen h-screen'>
+        <p className='flex items-center justify-center w-full'>
           Loading...
         </p>
       ) : (
@@ -43,7 +43,7 @@ const HomeContainer = () => {
             <div
               key={post._id}
               onClick={()=> selectePostDisplay(post)}
-              className='flex items-center border-b-[1px] border-gray-200 w-full px-10 justify-between mb-5 h-59 gap-10'
+              className='flex items-center border-b-[1px] my-5 border-gray-200 w-full px-10 h-55 justify-between mb-5 gap-10'
             >
               <div className='flex flex-col py-4 gap-3 w-[60%] md:w-full h-full'>
                 <div className='flex items-center gap-3 text-xs'>
@@ -75,7 +75,7 @@ const HomeContainer = () => {
                   </div>
                 </div>
               </div>
-              <div className='w-[30%] h-full flex items-center '>
+              <div className='w-[30%] flex items-center '>
                 <div className='w-[90%] rounded-xl h-30 bg-green-800'></div>
               </div>
             </div>

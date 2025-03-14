@@ -5,7 +5,7 @@ import avatar from "../../public/avatar.png";
 import { CalendarRange, Hand, HandHeart, Heart, HeartCrack, LucideHeartOff, Star, ThumbsUp } from "lucide-react";
 
 const ParticularPost = () => {
-  const { selectedPost , toggleLike , likes} = usePostStore();  
+  const { selectedPost , toggleLike } = usePostStore();  
   const { authUser } = useAuthStore();
 
   console.log(authUser)
@@ -20,8 +20,8 @@ const ParticularPost = () => {
 
   console.log(selectedPost)
   return (
-    <div className="flex flex-col w-[100vw] items-center">
-        <div className="p-5 flex justify-center mt-8 w-[60%] flex-col">
+    <div className="flex flex-col mt-8 w-[100vw] items-center overflow-y-scroll h-[540px] hide-scrollbar">
+        <div className="px-5 flex justify-center w-[60%] flex-col">
         <h1 className="text-[50px] text-gray-700 leading-14  md:3xl font-bold">{selectedPost.post.title}</h1>
         <div className="py-4">
             <div className="flex gap-x-4 my-4 pb-2 items-center">
@@ -64,7 +64,18 @@ const ParticularPost = () => {
                 </div>
             </div>
         </div>
-        <p className="mt-4 text-xl">{selectedPost.post.content?.[0]?.children?.[0]?.text}</p>
+        <div className="mt-7">
+          {selectedPost.post.content?.map((paragraph,index) => (
+            <div key={index} className="">
+              {paragraph.children.map((child,i)=>(
+                <p key={i} className="mb-1">
+                  {child.text === "" ? "\u00A0" : child.text}
+                </p>
+              ))}
+            </div>       
+          ))}
+        </div>
+      
         </div>
     </div>
   );
