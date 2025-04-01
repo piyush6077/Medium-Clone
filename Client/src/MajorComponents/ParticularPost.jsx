@@ -35,16 +35,16 @@ const ParticularPost = () => {
                     <p className="text-sm text-gray-600">Posted on {new Date(selectedPost.post.createdAt).toLocaleDateString()}</p>
                 </div>
             </div>
-            <div className='flex mt-6 text-xs gap-8 border-b-[1px] border-t-[1px] py-2 border-gray-100'>
-                <div className='w-16 flex gap-3'>
+            <div className='flex mt-6 text-xs gap-10 text-gray-700 border-b-[1px] border-t-[1px] py-2 border-gray-100'>
+                <div className='flex gap-3 items-center hover:text-gray-900'>
                     <CalendarRange width={16} />
-                    <p className="mt-[6px]">{new Date(selectedPost.post.createdAt).toLocaleDateString("en-US", {
+                    <p className="">{new Date(selectedPost.post.createdAt).toLocaleDateString("en-US", {
                         day: "numeric",
                         month: "short"
                     })}</p>
                 </div>
-                <div className='w-16 flex items-center gap-3'>
-                <div onClick={handleLikeAndUnlike}>
+                <div className='flex items-center gap-3 hover:text-gray-900'>
+                <div onClick={handleLikeAndUnlike}  >
                     {selectedPost.post.likes?.includes(authUser._id) 
                         ? <ThumbsUp 
                             fill
@@ -58,7 +58,7 @@ const ParticularPost = () => {
                 <p>{selectedPost.post.likes?.length}</p>
 
                 </div>
-                <div className='w-16 flex items-center gap-3'>
+                <div className='flex items-center gap-3 hover:text-gray-900'>
                     <Hand width={16} />
                     <p>+20</p>
                 </div>
